@@ -17,6 +17,9 @@ Given /^I have a Black [kK]night at (\w)(\d)$/ do |col,row|
   @knight = [col,row]
 end
 
+Given /^the valid moves are (\w)(\d)$/ do |col,row|
+end
+
 When /^I move the Pawn to (\w)(\d)$/ do |col, row|
   if row.to_i > 8
     @message = "Illegal move"
