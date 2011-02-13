@@ -19,4 +19,19 @@ end
 
 When /^I move the Pawn to (\w)(\d)$/ do |col, row|
   @pawn = [col,row]
+  @message = "Pawn to #{col}#{row}"
 end
+
+When /^the [pP]awn moves to (\w)(\d)$/ do |col,row|
+  When "I move the Pawn to #{col}#{row}"
+end
+
+When /^I move the [kK]night to (\w)(\d)$/ do |col, row|
+  @knight = [col,row]
+  @message = "Knight to #{col}#{row}"
+end
+
+Then /^I should be shown "([^"]*)"$/ do |msg|
+  @message.should == msg
+end
+
