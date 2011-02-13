@@ -35,3 +35,11 @@ Then /^I should be shown "([^"]*)"$/ do |msg|
   @message.should == msg
 end
 
+Then /^(the )?[pP]awn should be at (\w)(\d)$/ do |col,row|
+  @pawn.should == [col,row]
+end
+
+Then /^the [kK]night should be at (\w)(\d)$/ do |col,row|
+  @knight.should == [col,row]
+end
+
