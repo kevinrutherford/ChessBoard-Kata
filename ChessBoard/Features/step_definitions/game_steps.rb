@@ -43,7 +43,7 @@ Then /^I should be shown "([^"]*)"$/ do |msg|
   @message.should == msg
 end
 
-Then /^(the )?[pP]awn should be at (\w)(\d)$/ do |col,row|
+Then /^.{0,4}?[pP]awn should be at (\w)(\d)$/ do |col,row|
   @pawn.should == [col,row]
 end
 
