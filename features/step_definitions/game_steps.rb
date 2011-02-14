@@ -32,7 +32,11 @@ When /^I move the Pawn to (\w)(\d)$/ do |col, row|
   elsif (row.to_i - @pawn.row > 1) and ((@pawn.row != 2) or !@first_move)
     @message = "Pawn cannot move 2 spaces unless it in the first round and is on the home row."
   elsif dest.diagonally_ahead_of?(@pawn)
-    if @knight != dest
+    if @knight == dest
+      @pawn = dest
+      @knight = nil
+      @message = "Pawn takes Knight. Pawn wins"
+    else
       @message = "Pawn cannot diagonally unless it is capturing a piece."
     end
   else
@@ -47,6 +51,7 @@ When /^the [pP]awn moves to (\w)(\d)$/ do |col,row|
 end
 
 When /^I move the [kK]night to (\w)(\d)$/ do |col, row|
+  dest = Position.new(col,row)
   if col[0] > 'H'[0]
     @message = "Illegal move"
   else
@@ -60,7 +65,11 @@ Then /^I should be shown "([^"]*)"$/ do |msg|
   @message.should == msg
 end
 
-Then /^.{0,4}?[pP]awn should be at (\w)(\d)$/ do |col,row|
+Then /^Pawn should be at (\w)(\d)$/ do |col,row|
+  @pawn.should == Position.new(col,row)
+end
+
+Then /^the pawn should be at (\w)(\d)$/ do |col,row|
   @pawn.should == Position.new(col,row)
 end
 
@@ -72,3 +81,6 @@ Then /^I should be warned of an illegal move message$/ do
   @message.should == "Illegal move"
 end
 
+Then /^the knight should be taken$/ do
+  @knight.should be_nil
+end
