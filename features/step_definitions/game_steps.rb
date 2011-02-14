@@ -30,6 +30,10 @@ When /^I move the Pawn to (\w)(\d)$/ do |col, row|
     @message = "Illegal move"
   elsif (row.to_i - @pawn[1] > 1) and ((@pawn[1] != 2) or !@first_move)
     @message = "Pawn cannot move 2 spaces unless it in the first round and is on the home row."
+  elsif ([col,row.to_i] == [@pawn[0].succ,@pawn[1]+1] or [col,row.to_i] == [@pawn[0]-1,@pawn[1]+1])
+    if @knight != [col,row.to_i]
+      @message = "Pawn cannot diagonally unless it is capturing a piece."
+    end
   elsif
     @pawn = [col,row.to_i]
     @message = "Pawn to #{col}#{row}"
