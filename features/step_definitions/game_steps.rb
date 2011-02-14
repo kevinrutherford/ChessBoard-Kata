@@ -7,36 +7,37 @@ Given /^the game has not just started$/ do
 end
 
 Given /^I have a White [pP]awn at (\w)(\d)$/ do |col,row|
-  @pawn = [col,row.to_i]
+  @pawn = Position.new(col,row)
 end
 
 Given /^the Pawn is on (\w)(\d)$/ do |col,row|
-  @pawn = [col,row.to_i]
+  @pawn = Position.new(col,row)
 end
 
 Given /^the Knight is at (\w)(\d)$/ do |col,row|
-  @knight = [col,row]
+  @knight = Position.new(col,row)
 end
 
 Given /^I have a Black [kK]night at (\w)(\d)$/ do |col,row|
-  @knight = [col,row]
+  @knight = Position.new(col,row)
 end
 
 Given /^the valid moves are (\w)(\d)$/ do |col,row|
 end
 
 When /^I move the Pawn to (\w)(\d)$/ do |col, row|
-  if row.to_i > 8
+  dest = Position.new(col,row)
+  if dest.illegal?
     @message = "Illegal move"
-  elsif (row.to_i - @pawn[1] > 1) and ((@pawn[1] != 2) or !@first_move)
+  elsif (row.to_i - @pawn.row > 1) and ((@pawn.row != 2) or !@first_move)
     @message = "Pawn cannot move 2 spaces unless it in the first round and is on the home row."
-  elsif ([col,row.to_i] == [@pawn[0].succ,@pawn[1]+1] or [col,row.to_i] == [@pawn[0]-1,@pawn[1]+1])
-    if @knight != [col,row.to_i]
+  elsif dest.diagonally_ahead_of?(@pawn)
+    if @knight != dest
       @message = "Pawn cannot diagonally unless it is capturing a piece."
     end
-  elsif
-    @pawn = [col,row.to_i]
-    @message = "Pawn to #{col}#{row}"
+  else
+    @pawn = dest
+    @message = "Pawn to #{dest}"
   end
   @first_move = false
 end
@@ -49,8 +50,8 @@ When /^I move the [kK]night to (\w)(\d)$/ do |col, row|
   if col[0] > 'H'[0]
     @message = "Illegal move"
   else
-    @knight = [col,row.to_i]
-    @message = "Knight to #{col}#{row}"
+    @knight = Position.new(col,row)
+    @message = "Knight to #{dest}"
   end
   @first_move = false
 end
@@ -60,11 +61,11 @@ Then /^I should be shown "([^"]*)"$/ do |msg|
 end
 
 Then /^.{0,4}?[pP]awn should be at (\w)(\d)$/ do |col,row|
-  @pawn.should == [col,row.to_i]
+  @pawn.should == Position.new(col,row)
 end
 
 Then /^the [kK]night should be at (\w)(\d)$/ do |col,row|
-  @knight.should == [col,row.to_i]
+  @knight.should == Position.new(col,row)
 end
 
 Then /^I should be warned of an illegal move message$/ do
