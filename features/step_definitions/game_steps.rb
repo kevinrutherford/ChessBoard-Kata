@@ -23,6 +23,7 @@ Given /^I have a Black [kK]night at (\w)(\d)$/ do |col,row|
 end
 
 Given /^the valid moves are (\w)(\d)$/ do |col,row|
+  @valid_moves = [Position.new(col,row)]
 end
 
 Given /^the valid moves are$/ do |table|
@@ -35,7 +36,9 @@ end
 
 When /^I move the Pawn to (\w)(\d)$/ do |col, row|
   dest = Position.new(col,row)
-  if dest.illegal?
+  if @valid_moves and !@valid_moves.include?(dest)
+    @message = "illegal move"
+  elsif dest.illegal?
     @message = "Illegal move"
   elsif (row.to_i - @pawn.row > 1) and ((@pawn.row != 2) or !@first_move)
     @message = "Pawn cannot move 2 spaces unless it in the first round and is on the home row."
