@@ -1,5 +1,13 @@
 class Position
 
+  class << self
+    def from(str)
+      col = str[0,1]
+      row = str[1,1]
+      Position.new(col,row)
+    end
+  end
+
   ACHR = 'A'[0]
 
   attr_reader :row, :col

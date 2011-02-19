@@ -27,11 +27,7 @@ Given /^the valid moves are (\w)(\d)$/ do |col,row|
 end
 
 Given /^the valid moves are$/ do |table|
-  @valid_moves = []
-  table.rows.each do |move|
-    pending
-  end
-  @valid_moves = table.rows.flatten
+  @valid_moves = table.rows.flatten.map { |move| Position.from(move) }
 end
 
 When /^I move the Pawn to (\w)(\d)$/ do |col, row|
@@ -63,7 +59,9 @@ end
 
 When /^I move the [kK]night to (\w)(\d)$/ do |col, row|
   dest = Position.new(col,row)
-  if col[0] > 'H'[0]
+  if @valid_moves and !@valid_moves.include?(dest)
+    @message = "Illegal Move"
+  elsif col[0] > 'H'[0]
     @message = "Illegal move"
   else
     @knight = Position.new(col,row)
