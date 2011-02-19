@@ -46,6 +46,8 @@ When /^I move the Pawn to (\w)(\d)$/ do |col, row|
     else
       @message = "Pawn cannot diagonally unless it is capturing a piece."
     end
+  elsif dest == @knight
+    @message = "Pawn collides with Knight. Draw"
   else
     @pawn = dest
     @message = "Pawn to #{dest}"
@@ -63,6 +65,9 @@ When /^I move the [kK]night to (\w)(\d)$/ do |col, row|
     @message = "Illegal Move"
   elsif col[0] > 'H'[0]
     @message = "Illegal move"
+  elsif dest == @pawn
+    @pawn = nil
+    @message = "Knight takes Pawn. Knight Wins"
   else
     @knight = Position.new(col,row)
     @message = "Knight to #{dest}"
