@@ -92,3 +92,7 @@ end
 Then /^the knight should be taken$/ do
   @knight.should be_nil
 end
+
+Then /^the pawn should be taken$/ do
+  @pawn.should be_nil
+end

@@ -1,4 +1,4 @@
-﻿Feature: Moving the Knight.
+Feature: Moving the Knight.
 
     In order to play chess
     As a Player

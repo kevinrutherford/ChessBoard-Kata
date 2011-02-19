@@ -1,7 +1,8 @@
-﻿Feature: Moving the Pawn.
-    In order to play chess
-    As a Player
-    I want to move the Pawn legally.
+Feature: Moving the Pawn
+
+  In order to play chess
+  As a Player
+  I want to move the Pawn legally.
 
   Scenario: Pawn Starts on home row.
     Given the game has just started
@@ -74,7 +75,6 @@
     |D5|
     |D6|
     |D7|
-    |D8|
     |E1|
     |E2|
     |E3|

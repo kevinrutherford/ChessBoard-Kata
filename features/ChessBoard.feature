@@ -1,4 +1,4 @@
-﻿Feature: Boundaries of the board
+Feature: Boundaries of the board
 
     In order to obey the rules of Chess
     As a player
