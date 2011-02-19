@@ -1,4 +1,5 @@
-﻿Feature: Taking a piece.
+﻿Feature: Taking a piece
+
     In order to play chess
     As a Player
     I want to be able to take the oppositions piece.

@@ -25,6 +25,14 @@ end
 Given /^the valid moves are (\w)(\d)$/ do |col,row|
 end
 
+Given /^the valid moves are$/ do |table|
+  @valid_moves = []
+  table.rows.each do |move|
+    pending
+  end
+  @valid_moves = table.rows.flatten
+end
+
 When /^I move the Pawn to (\w)(\d)$/ do |col, row|
   dest = Position.new(col,row)
   if dest.illegal?
